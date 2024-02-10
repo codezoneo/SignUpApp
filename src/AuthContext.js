@@ -1,4 +1,4 @@
-// AuthContext.js
+
 
 import React, { createContext, useState, useEffect, useContext } from "react";
 
@@ -8,24 +8,28 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [logoutTimer, setLogoutTimer] = useState(null);
 
-  // Update token in state and localStorage when logging in
+  
   const login = (newToken) => {
     setToken(newToken);
     localStorage.setItem("token", newToken);
+    setLogoutTimer(setTimeout(logout, 5 * 60 * 1000)); // Auto logout after 5 minutes
   };
 
-  // Clear token from state and localStorage when logging out
+ 
   const logout = () => {
     setToken(null);
     localStorage.removeItem("token");
+    clearTimeout(logoutTimer); // Clear auto logout timer
   };
 
-  // Load token from localStorage on component mount (i.e., when app starts)
+  
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
+      setLogoutTimer(setTimeout(logout, 5 * 60 * 1000)); // Start auto logout timer
     }
   }, []);
 
