@@ -7,6 +7,7 @@ import Navbar from "./Navbar";
 import About from "./About";
 import Login from "./Login";
 import Products from "./Products";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   return (
@@ -15,10 +16,9 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/about" component={About} />
-          <Route path="/login" component={Login} />{" "}
-          {/* Add Route for Login component */}
-          <Route path="/products" component={Products} />{" "}
-          {/* Add Route for Products component */}
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/products" component={Products} />{" "}
+          {/* Use PrivateRoute for Products */}
         </Switch>
       </Router>
     </AuthProvider>
