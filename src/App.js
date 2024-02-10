@@ -4,14 +4,16 @@ import { AuthProvider } from "./AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import Login from "./Login";
 import Profile from "./Profile";
+import ChangePassword from "./ChangePassword";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Switch>
-          <PrivateRoute path="/profile" component={Profile} />
-          <Route path="/" component={Login} />
+          <PrivateRoute exact path="/" component={Profile} />
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/change-password" component={ChangePassword} />
         </Switch>
       </Router>
     </AuthProvider>
